@@ -17,7 +17,7 @@
             <article>
                 <h3>{{$product->name}}</h3>
                 <p><strong>Cantidad: </strong>{{$product->ammount}}</p>
-                <a href="{{route('products.create', $product)}}">Editar</a>
+                <a href="{{route('products.edit', $product)}}">Editar</a>
                 <form action="{{route('products.destroy', $product)}}" method="POST">
                     @method('delete')
                     @csrf

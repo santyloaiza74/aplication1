@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+
+use function Laravel\Prompts\search;
 
 class ProductController extends Controller
 {
@@ -36,7 +39,7 @@ class ProductController extends Controller
         $product->ammount= $request->ammount;
         $product->unit= $request->unit;
         $product->save();
-        return view('products.index');
+        return Redirect::route('products.index');
     }
 
     /**
@@ -44,7 +47,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        $product=Product::findOrFail();
+
     }
 
     /**
@@ -52,7 +56,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('products.edit',['product'=>$product]);
     }
 
     /**
@@ -60,7 +64,12 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $product->sku= $request->sku;
+        $product->name= $request->name;
+        $product->ammount= $request->ammount;
+        $product->unit= $request->unit;
+        $product->save();
+        return Redirect::route('products.index');
     }
 
     /**
@@ -68,7 +77,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete($product);
+        return Redirect::route('products.index');
     }
     public function search(Request $request)
     {
